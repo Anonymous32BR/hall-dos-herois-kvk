@@ -1406,3 +1406,56 @@ input[type=number] {
 .export-mode #report-mobile {
   width: 1080px !important;
 }
+
+/* --- MOBILE HOME PAGE FIXES --- */
+@media (max-width: 768px) {
+  /* 1. Header Layout: Stack Vertical & Remove Overlaps */
+  .game-header {
+    padding: 20px 10px;
+    min-height: auto;
+    gap: 15px;
+  }
+
+  /* Disable absolute positioning for logos on mobile */
+  .rok-logo,
+  .clan-logo {
+    position: static;
+    transform: none;
+    height: 70px; /* Smaller logos */
+    margin: 0;
+  }
+
+  /* Order: Logo RoK (Top) -> Title (Center) -> Logo Clan (Bottom) is default DOM order
+     If we want Logos side-by-side above title, we need a different approach.
+     But stacking is safest for now. Let's try to put logos side-by-side?
+     No, stacking is cleaner for "Title Centered".
+  */
+  
+  .game-title {
+    font-size: 2rem; /* Reduced from 3.2rem */
+    line-height: 1.1;
+  }
+
+  .title-overhead {
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+  }
+
+  /* 2. Card/Input Fixes */
+  .kingdom-card {
+    padding: 15px 10px;
+  }
+
+  .kingdom-name {
+    font-size: 0.9rem;
+    padding: 10px;
+    width: 100%; /* Ensure it takes width */
+  }
+
+  /* 3. Action Buttons */
+  .btn-game-orange {
+    width: 100%; /* Full width button on mobile */
+    padding: 15px 0;
+    font-size: 1rem;
+  }
+}
