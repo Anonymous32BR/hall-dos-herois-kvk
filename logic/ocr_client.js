@@ -72,14 +72,14 @@ export async function analyzeImage(imageFile, apiKey) {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${apiKey}`
+                "Authorization": `Bearer ${apiKey.trim()}` // Garantir sem espaços
             },
             body: JSON.stringify(payload)
         });
 
         if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(`Erro na API OpenAI: ${errorData.error?.message || response.statusText}`);
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(`Erro na API OpenAI (${response.status}): ${errorData.error?.message || response.statusText}`);
         }
 
         const data = await response.json();
@@ -94,6 +94,12 @@ export async function analyzeImage(imageFile, apiKey) {
 
     } catch (error) {
         console.error("Erro no OCR:", error);
+
+        // Diagnóstico Amigável
+        if (error.name === 'TypeError' && error.message.includes('fetch')) {
+            throw new Error("Erro de Conexão: Bloqueador de Anúncios ou firewall impedindo acesso à OpenAI.");
+        }
+
         throw error;
     }
 }
