@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado KvK 🏆</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="./assets/logo-rok.png" type="image/png">
+</head>
+
+<body>
+
+    <main>
+        <!-- Game Header Section (Identical to Index) -->
+        <!-- 1️⃣ GAME HEADER (Ceremony Style) -->
+        <header class="game-header">
+            <img src="./assets/logo-rok.png" class="rok-logo" alt="RoK">
+            <div style="text-align:center;">
+                <div class="champion-subtitle">CONQUISTA ABSOLUTA</div>
+                <h1 class="champion-title">🏆 CAMPEÃO KVK 🏆</h1>
+            </div>
+            <img src="./assets/logo-anonymous.png" class="clan-logo" alt="Clan">
+        </header>
+
+        <!-- 2️⃣ CHAMPION CARD (Epic Centerpiece) -->
+        <div id="championArea" class="champion-card">
+            <!-- Visual Decor -->
+            <div class="crimson-shield"></div>
+            <div class="swords-decoration">⚔️</div>
+            <div class="swords-decoration left">⚔️</div>
+            <div class="crown-icon">👑</div>
+
+            <!-- Champion Data -->
+            <h2 class="kingdom-name" id="champName">REINO 9999</h2>
+
+            <div class="score-display">
+                <span>⚔️ Pontuação Total de Guerra</span><br>
+                <div id="champScore" class="score-highlight">0 B</div>
+            </div>
+        </div>
+
+        <!-- Ranking List -->
+        <h3
+            style="color:#aaa; font-family:'Montserrat',sans-serif; margin-bottom:15px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:5px; width:100%; text-align:left;">
+            Classificação Geral</h3>
+
+        <div id="rankingList" class="ranking-list"
+            style="width:100%; max-height:400px; overflow-y:auto; padding-right:5px;">
+            <!-- Injected JS -->
+        </div>
+
+        <div style="margin-top:20px; width:100%; text-align:center;">
+            <button class="ceremony-btn" onclick="window.location.href='index.html'">
+                RETORNAR AO HALL
+            </button>
+        </div>
+
+        <!-- 3️⃣ REPORT GENERATION -->
+        <div style="margin-top:10px; width:100%; text-align:center;">
+            <button id="btnGenerateReport" class="btn-report-action">
+                📄 GERAR RELATÓRIO OFICIAL
+            </button>
+        </div>
+
+    </main>
+
+    <!-- REPORT MODAL (Hidden by default) -->
+    <div id="reportModal" class="modal"
+        style="display:none; align-items:start; overflow-y:auto; padding-top:20px; z-index:9999;">
+        <div class="modal-content"
+            style="width:100%; max-width:550px; background:#111; color:#fff; padding:0; border:1px solid #333; position:relative;">
+
+            <!-- REPORT STAGING AREA -->
+            <!-- We keep them visible-ish but hidden from viewport to allow html2canvas to render font/images correctly.
+                 But for modal preview, we only show MOBILE by default scaled down. -->
+
+            <div id="reports-preview-container"
+                style="width:100%; height:600px; background:#000; overflow-y:auto; position:relative; display:flex; justify-content:center; align-items:flex-start; padding-top:20px;">
+
+                <!-- LANGUAGE SWITCHER (Hidden) -->
+                <div class="lang-switch" style="display: none !important;">
+                    <button class="lang-btn active-lang" onclick="setLanguage('pt-BR')">🇧🇷 PT</button>
+                    <button class="lang-btn" onclick="setLanguage('en-US')">🇺🇸 EN</button>
+                </div>
+
+                <!-- MOBILE LAYOUT (Default Preview) -->
+                <div id="report-mobile">
+                    <div class="report-overlay"></div>
+                    <div style="position:relative; z-index:1;">
+
+                        <!-- Header (Standardized) -->
+                        <header class="report-header">
+                            <div class="header-logo left">
+                                <img src="./assets/logo-k32.png" alt="K32 Logo">
+                            </div>
+                            <div class="header-center">
+                                <h1 data-i18n="kvk_report_title">KVK REPORT</h1>
+                                <p data-i18n="official_report">RELATÓRIO OFICIAL</p>
+                                <span class="date data-date">--/--/----</span>
+                            </div>
+                            <div class="header-logo right">
+                                <img src="./assets/logo-anonymous.png" alt="Anonymous Logo">
+                            </div>
+                        </header>
+
+                        <!-- Scoring Rules (Mobile) -->
+                        <div
+                            style="margin-top:20px; display:flex; justify-content:center; gap:15px; font-size:0.9em; opacity:0.8;">
+                            <div
+                                style="background:rgba(255,215,0,0.1); border:1px solid #FFD700; padding:5px 15px; border-radius:20px;">
+                                T5 = <span class="data-config-t5" style="color:#FFD700; font-weight:bold;">--</span>
+                            </div>
+                            <div
+                                style="background:rgba(255,255,255,0.1); border:1px solid #aaa; padding:5px 15px; border-radius:20px;">
+                                T4 = <span class="data-config-t4" style="color:#fff; font-weight:bold;">--</span>
+                            </div>
+                        </div>
+
+                        <!-- Global Summary -->
+                        <div class="global-summary">
+                            <h2 data-i18n="global_summary">⚔️ Resumo Global</h2>
+                            <div style="margin-top:20px;">
+                                <div style="color:#aaa;" data-i18n="total_score">Pontuação Total</div>
+                                <div class="data-global-score"
+                                    style="font-size:3em; font-weight:800; color:#FFD700; line-height:1;">0</div>
+                            </div>
+                            <div style="display:flex; justify-content:space-between; margin-top:20px;">
+                                <div><span data-i18n="total_t5">Total T5</span>: <b class="data-global-t5">0</b></div>
+                                <div><span data-i18n="total_t4">Total T4</span>: <b class="data-global-t4">0</b></div>
+                            </div>
+                        </div>
+
+                        <!-- Kingdoms List -->
+                        <div class="kingdoms-list mobile-list">
+                            <!-- JS Injected -->
+                        </div>
+
+                        <!-- Footer (Standardized) -->
+                        <footer class="report-footer">
+                            <span data-i18n="footer_title">Calculadora Hall dos Heróis</span>
+                            <span data-i18n="footer_rights">© Todos os direitos reservados — Anonymous K32</span>
+                            <span data-i18n="footer_version">Versão 2.0</span>
+                        </footer>
+                    </div>
+                </div>
+
+            </div>
+            <!-- END PREVIEW CONTAINER -->
+
+            <!-- DESKTOP LAYOUT (Refactored for Full Width / Strict 1920px) -->
+            <div id="report-desktop-wrapper" style="display:none;">
+                <div id="report-desktop">
+                    <div class="report-overlay"></div>
+                    <div style="position:relative; z-index:1; height:100%; display:flex; flex-direction:column;">
+
+                        <!-- 1. HEADER (Standardized) -->
+                        <header class="report-header">
+                            <div class="header-logo left">
+                                <img src="./assets/logo-k32.png" alt="K32 Logo">
+                            </div>
+                            <div class="header-center">
+                                <h1 data-i18n="kvk_report_title">KVK REPORT</h1>
+                                <p data-i18n="official_report">RELATÓRIO OFICIAL</p>
+                                <span class="date data-date">--/--/----</span>
+                                <div style="color:#FFD700; font-size:1.2em; margin-top:5px;">
+                                    <span data-i18n="champion_kingdom">Reino Campeão</span>: <strong
+                                        class="data-champion-name" style="font-size:1.3em;">--</strong>
+                                </div>
+                            </div>
+                            <div class="header-logo right">
+                                <img src="./assets/logo-anonymous.png" alt="Anonymous Logo">
+                            </div>
+                        </header>
+
+                        <!-- 2. DASHBOARD BAR (Global Stats & Rules) -->
+                        <div class="desktop-dashboard-bar">
+                            <!-- Global Score -->
+                            <div class="dash-item score-box">
+                                <div class="dash-label">⚔️ PONTUAÇÃO TOTAL</div>
+                                <div class="data-global-score dash-value-big">0</div>
+                            </div>
+
+                            <!-- Global T5 -->
+                            <div class="dash-item">
+                                <div class="dash-label">TOTAL T5</div>
+                                <div class="data-global-t5 dash-value">0</div>
+                            </div>
+
+                            <!-- Global T4 -->
+                            <div class="dash-item">
+                                <div class="dash-label">TOTAL T4</div>
+                                <div class="data-global-t4 dash-value">0</div>
+                            </div>
+
+                            <!-- Rules -->
+                            <div class="dash-item rules-box">
+                                <div class="dash-label">REGRAS</div>
+                                <div style="display:flex; gap:15px; align-items:baseline;">
+                                    <span>T5 = <b class="data-config-t5" style="color:#FFD700">--</b></span>
+                                    <span style="border-left:1px solid #555; height:15px;"></span>
+                                    <span>T4 = <b class="data-config-t4" style="color:#fff">--</b></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 3. KINGDOMS GRID -->
+                        <div class="kingdoms-list desktop-list">
+                            <!-- JS Injected 3-Col Grid -->
+                        </div>
+
+                        <!-- 4. FOOTER (Bottom Absolute or Flex End) -->
+                        <footer class="report-footer">
+                            <span data-i18n="footer_title">Calculadora Hall dos Heróis</span>
+                            <span data-i18n="footer_rights">© Todos os direitos reservados — Anonymous K32</span>
+                            <span data-i18n="footer_version">Versão 2.0</span>
+                        </footer>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Actions -->
+        <div style="padding:20px; text-align:center; background:#1a1a1a; border-top:1px solid #333;">
+            <div style="margin-bottom:15px; color:#888; font-size:0.8rem;">ESCOLHA O
+                FORMATO:</div>
+
+            <button type="button" id="btnDownloadMobile"
+                style="background:#28a745; color:#fff; border:none; padding:12px 20px; border-radius:8px; cursor:pointer; font-weight:bold; font-size:0.9rem; box-shadow:0 5px 15px rgba(40, 167, 69, 0.3); margin-right:10px;">
+                📱 MOBILE (9:16)
+            </button>
+
+            <button type="button" id="btnDownloadDesktop"
+                style="background:#007bff; color:#fff; border:none; padding:12px 20px; border-radius:8px; cursor:pointer; font-weight:bold; font-size:0.9rem; box-shadow:0 5px 15px rgba(0, 123, 255, 0.3); margin-right:15px;">
+                💻 DESKTOP (16:9)
+            </button>
+
+            <button type="button" id="btnCloseReport"
+                style="background:transparent; color:#aaa; border:1px solid #555; padding:12px 20px; border-radius:8px; cursor:pointer;">
+                FECHAR
+            </button>
+        </div>
+    </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <script type="module" src="result.js"></script>
+</body>
+
+</html>

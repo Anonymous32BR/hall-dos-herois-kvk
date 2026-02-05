@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hall of Heroes – KvK</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="shortcut icon" href="./assets/logo-rok.png" type="image/png">
+  <!-- Fonts loaded via CSS @import but keeping meta for perf if needed later -->
+</head>
+
+<body>
+
+  <!-- 4️⃣ SISTEMA BILÍNGUE -->
+  <!-- 4️⃣ SISTEMA BILÍNGUE (HIDDEN AS REQUESTED) -->
+  <div class="lang-switch" style="display: none !important;">
+    <div class="settings-btn-wrapper">
+      <button id="settingsBtn" style="background:none; border:none; border-radius: 0; font-size:1.2rem; cursor:pointer;"
+        title="Configurações">⚙️</button>
+    </div>
+    <button onclick="setLang('pt-BR')"><img src="./assets/flag-br.png" class="lang-flag" alt="PT"></button>
+    <button onclick="setLang('en-US')"><img src="./assets/flag-us.png" class="lang-flag" alt="EN"></button>
+  </div>
+
+  <main>
+    <!-- Game Header Section -->
+    <div class="game-header">
+      <img src="./assets/logo-rok.png" class="rok-logo" alt="RoK">
+      <div class="title-overhead" data-i18n="header_sup">Hall dos Heróis</div>
+      <h1 class="game-title">CAMPEÃO</h1>
+      <img src="./assets/logo-anonymous.png" class="clan-logo" alt="Clan">
+    </div>
+
+    <!-- Main Kingdoms List -->
+    <div id="kingdomsList" class="kingdoms-list">
+      <!-- Cards rendered here -->
+    </div>
+
+    <!-- Primary Action: ADD KINGDOM -->
+    <div class="action-area">
+      <div class="btn-wrapper">
+        <button id="addKingdomBtn" class="btn-game-orange" data-i18n="add_btn">
+          + ADICIONAR REINO
+        </button>
+      </div>
+    </div>
+
+    <!-- Footer Config -->
+    <div class="footer-bar">
+      <div class="config-row">
+        <div class="config-bubble">
+          <span>T5 Pts:</span>
+          <input type="number" id="inputT5" value="20">
+          <input type="range" id="sliderT5" min="1" max="100" value="20" style="width:80px;">
+        </div>
+        <div class="config-bubble">
+          <span>T4 Pts:</span>
+          <input type="number" id="inputT4" value="8">
+          <input type="range" id="sliderT4" min="1" max="100" value="8" style="width:80px;">
+        </div>
+      </div>
+
+      <div class="calc-action">
+        <button id="calculateBtn" data-i18n="calculate">
+          CALCULAR RANKING DO KVK 👑
+        </button>
+      </div>
+    </div>
+
+    <!-- FOOTER (Standardized) -->
+    <footer class="report-footer"
+      style="margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); padding-top:15px; width:100%;">
+      <span data-i18n="footer_title">Calculadora Hall dos Heróis</span>
+      <span data-i18n="footer_rights">© Todos os direitos reservados — Anonymous K32</span>
+      <span data-i18n="footer_version">Versão 2.0</span>
+    </footer>
+
+  </main>
+
+  <!-- Modals & Overlays -->
+  <div id="configModal" class="modal">
+    <div class="modal-content">
+      <h3 style="color:#FFD700; margin-bottom:15px; font-family: 'Cinzel', serif;">API Configuration</h3>
+      <input type="password" id="apiKeyInput" placeholder="sk-..."
+        style="width:100%; padding:10px; border-radius:5px; border:1px solid #444; background:#000; color:#fff; margin-bottom:10px;">
+      <div style="display:flex; justify-content:flex-end; gap:10px;">
+        <button id="closeConfigBtn"
+          style="background:transparent; border:1px solid #555; color:#ccc; padding:8px 15px; border-radius:6px; cursor:pointer;">Cancel</button>
+        <button id="saveConfigBtn"
+          style="background:#FFD700; color:#000; border:none; padding:8px 15px; border-radius:6px; font-weight:bold; cursor:pointer;">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="loadingOverlay" class="loading-overlay">
+    <div class="spinner"></div>
+    <div style="color:#fff; font-weight:bold; font-family: 'Montserrat', sans-serif;">Processing...</div>
+  </div>
+
+  <div id="notification" class="notification"></div>
+
+  <!-- Template: Card ITEM -->
+  <template id="kingdomCardTemplate">
+    <div class="kingdom-card" data-id="">
+      <div class="card-header">
+        <span style="color:#FFD700; font-size:1.2rem;">🏰</span>
+        <input type="text" class="kingdom-name" data-i18n-placeholder="kingdom_placeholder"
+          placeholder="Nome ou Número do Reino">
+        <button class="remove-btn" title="Remove">🗑️</button>
+      </div>
+
+      <div class="upload-area">
+        <span data-i18n="upload_text">Clique para enviar o print</span>
+        <input type="file" accept="image/*" class="file-input" style="display:none">
+      </div>
+
+      <div class="detailed-stats" style="display:none; margin-top:15px; font-family: 'Montserrat', sans-serif;">
+        <!-- Totals High Level -->
+        <div class="stats-header"
+          style="display:flex; justify-content:space-between; margin-bottom:10px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:5px;">
+          <div style="color:var(--primary-gold)">TOTAL T5: <b class="val-total-t5" style="color:#fff">0</b></div>
+          <div style="color:#aaa">TOTAL T4: <b class="val-total-t4" style="color:#fff">0</b></div>
+        </div>
+
+        <!-- Detail Grid -->
+        <div class="stats-grid"
+          style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; font-size:0.8rem; color:#ccc;">
+          <!-- T5 Column -->
+          <div class="stat-col">
+            <div style="display:flex; align-items:center; gap:5px; margin-bottom:8px; opacity:0.9;">
+              <img src="./assets/medal-t5-new.png" class="medal-icon" alt="T5">
+              <span style="color:var(--primary-gold); font-weight:bold;">TIER 5</span>
+            </div>
+
+            <div class="troop-row"><img src="./assets/icon-inf-new.png" class="troop-icon"><span
+                class="val-inf-t5 text-white">0</span></div>
+            <div class="troop-row"><img src="./assets/icon-cav-new.png" class="troop-icon"><span
+                class="val-cav-t5 text-white">0</span></div>
+            <div class="troop-row"><img src="./assets/icon-arc-new.png" class="troop-icon"><span
+                class="val-arc-t5 text-white">0</span></div>
+            <div class="troop-row"><img src="./assets/icon-cer-new.png" class="troop-icon"><span
+                class="val-cer-t5 text-white">0</span></div>
+          </div>
+
+          <!-- T4 Column -->
+          <div class="stat-col">
+            <div style="display:flex; align-items:center; gap:5px; margin-bottom:8px; opacity:0.9;">
+              <img src="./assets/medal-t4-new.png" class="medal-icon" alt="T4">
+              <span style="color:#aaa; font-weight:bold;">TIER 4</span>
+            </div>
+
+            <div class="troop-row"><img src="./assets/icon-inf-new.png" class="troop-icon"><span
+                class="val-inf-t4 text-white">0</span></div>
+            <div class="troop-row"><img src="./assets/icon-cav-new.png" class="troop-icon"><span
+                class="val-cav-t4 text-white">0</span></div>
+            <div class="troop-row"><img src="./assets/icon-arc-new.png" class="troop-icon"><span
+                class="val-arc-t4 text-white">0</span></div>
+            <div class="troop-row"><img src="./assets/icon-cer-new.png" class="troop-icon"><span
+                class="val-cer-t4 text-white">0</span></div>
+          </div>
+        </div>
+
+        <div class="edit-action"
+          style="text-align:center; margin-top:15px; color:#FFD700; cursor:pointer; font-size:0.8rem; border-top:1px solid rgba(255,255,255,0.05); padding-top:10px;">
+          🔄 Re-upload Print
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <script type="module">
+    import { setLanguage } from './logic/language.js';
+    window.setLang = setLanguage;
+  </script>
+  <script type="module" src="app.js"></script>
+</body>
+
+</html>

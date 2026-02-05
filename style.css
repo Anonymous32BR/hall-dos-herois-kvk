@@ -1,0 +1,1408 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Cinzel:wght@600;800&display=swap');
+
+:root {
+  --primary-gold: #FFD700;
+  --secondary-gold: #FFAA00;
+  --champion-gold: #FFD36A;
+  /* New Epic Gold */
+  --gold-dark: #C9A441;
+  /* New Dark Gold */
+  --imperial-black: #0E0E11;
+  /* New Imperial Black */
+  --font-text: 'Montserrat', sans-serif;
+  --font-title: 'Cinzel', serif;
+}
+
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 0 15px rgba(255, 211, 106, 0.2);
+  }
+
+  50% {
+    box-shadow: 0 0 30px rgba(255, 211, 106, 0.5);
+  }
+
+  100% {
+    box-shadow: 0 0 15px rgba(255, 211, 106, 0.2);
+  }
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  outline: none;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-text);
+  background:
+    url("./assets/bg-rok-war.png") center center / cover no-repeat fixed;
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+/* 5️⃣ CLIMA DE GUERRA (Overlay) */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at top,
+      rgba(255, 140, 0, 0.15),
+      transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* --- 1️⃣ GLASSMORPHISM CONTAINER (USER SNIPPET) --- */
+main {
+  width: 100%;
+  max-width: 900px;
+  margin-top: 40px;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 20px;
+
+  /* Snippet Exato do Usuário */
+  background: linear-gradient(180deg,
+      rgba(255, 255, 255, 0.10),
+      rgba(255, 255, 255, 0.04));
+  backdrop-filter: blur(14px) saturate(120%);
+  -webkit-backdrop-filter: blur(14px) saturate(120%);
+  border-radius: 22px;
+  border: 1px solid rgba(255, 215, 0, 0.35);
+  box-shadow:
+    0 0 0 1px rgba(255, 215, 0, 0.15),
+    0 20px 60px rgba(0, 0, 0, 0.65);
+}
+
+/* --- LANGUAGE SWITCH --- */
+.lang-switch {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  gap: 8px;
+  z-index: 100;
+}
+
+.lang-switch button {
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: transform 0.2s;
+  opacity: 0.8;
+}
+
+.lang-switch button:hover {
+  background: transparent;
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+.lang-flag {
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+  border-radius: 50%;
+  /* Circular flags */
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+/*settings btn adjust*/
+.settings-btn-wrapper {
+  margin-right: 15px;
+}
+
+/* --- HEADER --- */
+.game-header {
+  width: 100%;
+  text-align: center;
+  padding: 40px 100px 10px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  min-height: 120px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  /* Sutil */
+}
+
+.rok-logo,
+.clan-logo {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 90px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.6));
+  transition: transform 0.3s;
+}
+
+.rok-logo:hover,
+.clan-logo:hover {
+  transform: translateY(-50%) scale(1.05);
+}
+
+.rok-logo {
+  left: 30px;
+}
+
+.clan-logo {
+  right: 30px;
+}
+
+.title-overhead {
+  color: #FFD700;
+  font-family: var(--font-text);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  opacity: 0.9;
+  margin-bottom: 5px;
+}
+
+.game-title {
+  font-family: var(--font-title);
+  /* CINZEL */
+  font-size: 3.2rem;
+  font-weight: 800;
+
+  /* Azul profundo com borda dourada via Shadow/Stroke */
+  color: #0d2b5e;
+  text-shadow:
+    0 0 0 #FFD700,
+    1px -1px 0 #FFD700,
+    -1px 1px 0 #FFD700,
+    1px 1px 0 #FFD700;
+
+  /* Ou usar gradient text se preferir o estilo anterior */
+  background: linear-gradient(180deg, #fff 20%, #8ab4f8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 15px rgba(0, 100, 255, 0.4));
+
+  text-transform: uppercase;
+  line-height: 1;
+  letter-spacing: 1px;
+}
+
+/* --- LIST --- */
+.kingdoms-list {
+  width: 100%;
+  padding: 20px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* --- CARD (Glass Item) --- */
+.kingdom-card {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 3px solid #FFD700;
+  border-radius: 12px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: background 0.2s;
+}
+
+.kingdom-card:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.card-header {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.kingdom-name {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 12px 15px;
+  border-radius: 8px;
+  font-family: var(--font-text);
+  font-weight: 600;
+  flex: 1;
+  font-size: 1rem;
+}
+
+.kingdom-name::placeholder {
+  color: #aaa;
+}
+
+.upload-area {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px dashed rgba(255, 255, 255, 0.25);
+  border-radius: 8px;
+  padding: 25px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.2s;
+  color: #ccc;
+  font-family: var(--font-text);
+}
+
+.upload-area:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: #FFD700;
+  color: #fff;
+}
+
+/* --- REMOVE BUTTON --- */
+.remove-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: transform 0.2s;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.remove-btn:hover {
+  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* --- BUTTON ORANGE (Action) --- */
+.action-area {
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+.btn-game-orange {
+  background: linear-gradient(180deg, #FF9900 0%, #FF4500 100%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50px;
+  padding: 18px 50px;
+  font-family: var(--font-title);
+  /* CINZEL STYLE BUTTON */
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #fff;
+  text-transform: uppercase;
+  cursor: pointer;
+  letter-spacing: 1px;
+  box-shadow:
+    0 10px 20px rgba(0, 0, 0, 0.4),
+    inset 0 2px 0 rgba(255, 255, 255, 0.3);
+  transition: transform 0.2s;
+  position: relative;
+}
+
+.btn-game-orange:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+/* --- REPORT BUTTON (Green/Action) --- */
+.btn-report-action {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  border: none;
+  border-radius: 50px;
+  padding: 15px 40px;
+  font-family: var(--font-title);
+  font-size: 1rem;
+  font-weight: 800;
+  color: #fff;
+  text-transform: uppercase;
+  cursor: pointer;
+  letter-spacing: 1px;
+  box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.btn-report-action:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(40, 167, 69, 0.6);
+  filter: brightness(1.1);
+}
+
+/* --- FOOTER Config --- */
+.footer-bar {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 0 0 22px 22px;
+}
+
+.config-bubble {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50px;
+  padding: 8px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-text);
+  font-size: 0.9rem;
+  color: #ddd;
+}
+
+/* --- CALCULATE BUTTON --- */
+#calculateBtn {
+  background: linear-gradient(90deg, #996515, #B8860B, #FFD700, #B8860B);
+  background-size: 300% auto;
+  color: #fff;
+  /* Texto branco em btn dourado escuro fica melhor? ou preto? Testando Branco com sombra */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: 1rem;
+  padding: 14px 40px;
+  border: 1px solid #ffd700;
+  border-radius: 30px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  animation: shineGold 4s infinite linear;
+}
+
+#calculateBtn:hover {
+  transform: scale(1.02);
+}
+
+@keyframes shineGold {
+  to {
+    background-position: 300% center;
+  }
+}
+
+/* Input Utilities */
+input[type=range] {
+  accent-color: #FFD700;
+  height: 3px;
+  cursor: pointer;
+}
+
+input[type=number] {
+  background: transparent;
+  border: none;
+  color: #FFD700;
+  font-weight: bold;
+  width: 40px;
+  text-align: right;
+  font-family: var(--font-text);
+}
+
+/* Modal & Notifications */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(5px);
+  z-index: 2000;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #1a1a1a;
+  padding: 30px;
+  border: 1px solid #FFD700;
+  border-radius: 12px;
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
+}
+
+.notification {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translate(-50%, -150%);
+  background: rgba(10, 10, 10, 0.95);
+  border: 1px solid #FFD700;
+  color: #fff;
+  padding: 15px 30px;
+  border-radius: 8px;
+  z-index: 3000;
+  transition: 0.3s;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.8);
+  font-family: var(--font-text);
+  font-weight: 600;
+  text-align: center;
+}
+
+.notification.show {
+  transform: translate(-50%, 20px);
+}
+
+.loading-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 2500;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(255, 255, 255, 0.1);
+  border-top-color: #FFD700;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Helpers for detailed stats */
+.text-white {
+  color: #fff;
+  font-weight: 600;
+}
+
+.stat-col {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 8px;
+  border-radius: 6px;
+}
+
+/* Icons for Troops */
+.medal-icon {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  border-radius: 50%;
+  /* Mask corners if image is white-boxed */
+}
+
+.troop-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.troop-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  /* New icons are transparent PNGs, so no filter needed anymore */
+  /* filter: invert(1) brightness(1.5); */
+  /* mix-blend-mode: screen; */
+}
+
+/* --- RESULT PAGE STYLES --- */
+.champion-card {
+  width: 100%;
+  text-align: center;
+  padding: 30px;
+  background: rgba(255, 215, 0, 0.05);
+  /* Gold tint low opacity */
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 16px;
+  margin-bottom: 25px;
+  box-shadow: 0 0 40px rgba(255, 215, 0, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.champion-card::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.1) 0%, transparent 60%);
+  animation: rotateGlow 10s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes rotateGlow {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Specific Override for the Champion Title inside the Card */
+.champion-card #champName {
+  background: transparent;
+  border: none;
+  font-size: 4rem;
+  color: #FFD700;
+  text-align: center;
+  margin: 10px 0;
+  padding: 0;
+  display: block;
+  width: 100%;
+  text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+  font-family: 'Cinzel', serif;
+  /* Matching the game theme */
+}
+
+.ranking-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  padding-right: 5px;
+  /* Scroll space */
+}
+
+.ranking-row {
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 15px 20px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: transform 0.2s, background 0.2s;
+}
+
+.ranking-row:hover {
+  transform: translateX(5px);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.ranking-pos {
+  font-family: var(--font-title);
+  width: 50px;
+  font-size: 1.4rem;
+  color: #888;
+  font-weight: 800;
+  text-align: center;
+}
+
+.ranking-reino {
+  flex: 1;
+  font-family: var(--font-text);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+  padding-left: 20px;
+}
+
+.ranking-pontos {
+  font-family: var(--font-text);
+  font-size: 1rem;
+  color: #FFD700;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+  /* Strong shadow for readability */
+}
+
+/* Explicit selector for Champion Score if not already present, or use ID injection */
+#champScore {
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 1);
+}
+
+/* Podium Colors */
+.rank-1 {
+  background: linear-gradient(90deg, rgba(255, 215, 0, 0.15), transparent);
+  border-left: 4px solid #FFD700;
+}
+
+.rank-1 .ranking-pos {
+  font-size: 1.8rem;
+}
+
+/* Medal size */
+
+.rank-2 {
+  background: linear-gradient(90deg, rgba(192, 192, 192, 0.15), transparent);
+  border-left: 4px solid #C0C0C0;
+}
+
+.rank-3 {
+  background: linear-gradient(90deg, rgba(205, 127, 50, 0.15), transparent);
+  border-left: 4px solid #CD7F32;
+}
+
+/* --- CEREMONY UI OVERHAUL --- */
+
+/* Champion Title with Glow */
+.champion-title {
+  color: var(--champion-gold);
+  text-shadow:
+    0 0 8px rgba(255, 211, 106, 0.6),
+    0 0 16px rgba(255, 211, 106, 0.4);
+  font-family: var(--font-title);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 5px;
+}
+
+.champion-subtitle {
+  color: var(--gold-dark);
+  font-size: 0.9rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  border-bottom: 2px solid rgba(201, 164, 65, 0.3);
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+/* Champion Card Epic Style */
+.champion-card {
+  border: 2px solid rgba(255, 211, 106, 0.6);
+  box-shadow:
+    0 0 20px rgba(255, 211, 106, 0.25),
+    inset 0 0 30px rgba(255, 211, 106, 0.15);
+  backdrop-filter: blur(12px);
+  background: linear-gradient(180deg, rgba(14, 14, 17, 0.8) 0%, rgba(20, 20, 25, 0.9) 100%);
+  border-radius: 12px;
+  padding: 30px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  animation: pulseGlow 4s infinite;
+  margin-bottom: 30px;
+}
+
+/* Adornments Placeholders */
+.crimson-shield {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(255, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0) 70%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.crown-icon {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  display: block;
+  filter: drop-shadow(0 0 10px rgba(255, 211, 106, 0.8));
+}
+
+.swords-decoration {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 2rem;
+  opacity: 0.2;
+}
+
+.swords-decoration.left {
+  left: 20px;
+  right: auto;
+  transform: scaleX(-1);
+}
+
+/* Imperial Typography */
+.kingdom-name {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--champion-gold);
+  z-index: 2;
+  position: relative;
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+  margin: 10px 0;
+}
+
+.score-display {
+  font-size: 1.5rem;
+  color: #fff;
+  z-index: 2;
+  position: relative;
+  margin-top: 15px;
+}
+
+.score-highlight {
+  color: var(--champion-gold);
+  font-weight: bold;
+  font-size: 1.8rem;
+}
+
+/* Button Overhaul */
+.ceremony-btn {
+  background: linear-gradient(45deg, #FF8C00, #FFD700);
+  border: none;
+  color: #000;
+  font-weight: 800;
+  padding: 12px 30px;
+  font-size: 1rem;
+  text-transform: uppercase;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 0 15px rgba(255, 140, 0, 0.4);
+  transition: all 0.3s ease;
+  margin-top: 20px;
+}
+
+.ceremony-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(255, 211, 106, 0.6);
+  color: #fff;
+}
+
+/* --- REPORT GENERATOR STYLES --- */
+
+/* Base Container */
+#kvk-report {
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  position: relative;
+  overflow: hidden;
+  /* Transform origin for preview scaling */
+  transform-origin: top center;
+  box-sizing: border-box;
+}
+
+#kvk-report .report-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(15, 12, 41, 0.9) 0%, rgba(48, 43, 99, 0.95) 100%), url('./assets/bg-rok-war.png');
+  background-size: cover;
+  background-attachment: fixed;
+  pointer-events: none;
+  z-index: 0;
+}
+
+#kvk-report .report-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+
+/* --- MOBILE MODE (9:16 Portrait) --- */
+#kvk-report.mobile {
+  width: 1080px;
+  min-height: 1920px;
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Mobile Header */
+#kvk-report.mobile .report-header {
+  text-align: center;
+  border-bottom: 4px solid #FFD700;
+  padding-bottom: 40px;
+  margin-bottom: 50px;
+}
+
+#kvk-report.mobile .header-title {
+  font-family: 'Cinzel', serif;
+  font-size: 5rem;
+  color: #FFD700;
+  margin: 0;
+  text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+}
+
+/* --- DESKTOP MODE (16:9 Landscape) --- */
+#kvk-report.desktop {
+  width: 1920px;
+  min-height: 1080px;
+  /* Allow growth if list is long */
+  padding: 60px 80px;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  /* Left: Summary/Rules, Right: List */
+  grid-template-rows: auto 1fr;
+  gap: 50px;
+  align-content: start;
+}
+
+/* Desktop Header spans full width */
+#kvk-report.desktop .report-header {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 4px solid #FFD700;
+  padding-bottom: 30px;
+  margin-bottom: 20px;
+}
+
+#kvk-report.desktop .header-title {
+  font-family: 'Cinzel', serif;
+  font-size: 4rem;
+  color: #FFD700;
+  margin: 0;
+}
+
+/* Desktop specific Adjustments */
+#kvk-report.desktop .report-left-col {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+#kvk-report.desktop .report-right-col {
+  display: flex;
+  flex-direction: column;
+}
+
+#kvk-report.desktop #kingdomsReportContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* 2 columns of kingdom cards */
+  gap: 30px;
+}
+
+/* --- REPORT GENERATOR FINAL --- */
+
+/* Utility: Background Overlay */
+.report-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(15, 12, 41, 0.95) 0%, rgba(48, 43, 99, 0.98) 100%), url('./assets/bg-rok-war.png');
+  background-size: cover;
+  background-attachment: fixed;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* --- MOBILE CONTAINER (1080x1920 base) --- */
+#report-mobile {
+  width: 1080px;
+  min-height: 1920px;
+  background: #0f0c29;
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  padding: 48px;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Mobile Typography (User Requested Sizes) */
+#report-mobile h1 {
+  font-family: 'Cinzel', serif;
+  font-size: 42px;
+  margin: 0;
+  color: #FFD700;
+  text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+}
+
+#report-mobile h2 {
+  font-size: 30px;
+  text-transform: uppercase;
+  margin: 0;
+  color: #fff;
+}
+
+#report-mobile h3 {
+  font-size: 26px;
+  font-weight: bold;
+  margin: 0;
+  color: #FFD700;
+}
+
+#report-mobile p,
+#report-mobile div {
+  font-size: 22px;
+}
+
+/* Mobile Sections */
+#report-mobile .report-header {
+  text-align: center;
+  border-bottom: 2px solid #FFD700;
+  padding-bottom: 32px;
+  margin-bottom: 40px;
+}
+
+#report-mobile .global-summary {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 32px;
+  margin-bottom: 40px;
+  border-left: 6px solid #28a745;
+}
+
+#report-mobile .kingdoms-list {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+
+/* --- DESKTOP WRAPPER (Visual Center) --- */
+#report-desktop-wrapper {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  background: radial-gradient(circle at top, #1b1a4a, #0b0a1e);
+  margin: 0;
+  padding: 0;
+}
+
+/* --- DESKTOP CONTAINER (Strict 1920x1080 Content) --- */
+#report-desktop {
+  width: 1920px !important;
+  height: 1080px !important;
+  background: none;
+  /* Background is now on wrapper */
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  padding: 48px 64px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  position: relative;
+}
+
+/* 1. Desktop Header */
+#report-desktop .report-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  flex-shrink: 0;
+}
+
+#report-desktop h1 {
+  font-family: 'Cinzel', serif;
+  font-size: 56px;
+  margin: 0;
+  color: #FFD700;
+  text-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+}
+
+/* 2. Desktop Dashboard Bar */
+.desktop-dashboard-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(20, 20, 40, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 15px 40px;
+  margin-bottom: 40px;
+  flex-shrink: 0;
+}
+
+.dash-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dash-label {
+  font-size: 14px;
+  text-transform: uppercase;
+  color: #aaa;
+  margin-bottom: 5px;
+  letter-spacing: 1px;
+}
+
+.dash-value {
+  font-size: 28px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.dash-value-big {
+  font-size: 42px;
+  font-weight: 800;
+  color: #FFD700;
+  line-height: 1;
+}
+
+/* 3. Kingdoms Grid (3 Columns now!) */
+#report-desktop .kingdoms-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  /* 3 cols to fill width */
+  gap: 32px;
+  flex-grow: 1;
+  align-content: start;
+}
+
+/* Kingdom Card (Desktop) - Vertical Size fixed to ensure 2 rows fit */
+.kingdom-card {
+  background: rgba(30, 30, 50, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 20px 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 380px;
+  /* Ensure specific height */
+}
+
+.kingdom-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+}
+
+.kingdom-name {
+  font-size: 20px;
+  /* Reduced */
+  font-weight: bold;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.score-wrapper {
+  text-align: right;
+}
+
+.score-primary {
+  font-size: 24px;
+  /* Reduced */
+  color: #FFD700;
+  font-weight: 800;
+}
+
+.score-secondary {
+  font-size: 12px;
+  color: #888;
+}
+
+/* Internal Table-like Rows (Desktop) */
+.troop-block {
+  /* Tight grouping */
+}
+
+.troop-row {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  padding: 2px 0;
+  /* Very tight */
+  font-size: 14px;
+  /* Smaller font */
+  color: #ddd;
+}
+
+.troop-row span:first-child {
+  opacity: 0.7;
+}
+
+.troop-total {
+  text-align: right;
+  font-weight: bold;
+  color: #FFD700;
+  margin-top: 2px;
+  font-size: 14px;
+}
+
+/* 4. Desktop Footer */
+.report-footer {
+  margin-top: 15px;
+  /* Reduced */
+  padding-top: 10px;
+  border-top: 2px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.footer-total {
+  text-align: right;
+}
+
+.footer-label {
+  font-size: 10px;
+  color: #aaa;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.footer-value {
+  font-size: 32px;
+  /* Reduced from 48px */
+  font-weight: 800;
+  color: #00ffaa;
+  text-shadow: 0 0 15px rgba(0, 255, 170, 0.3);
+  line-height: 1;
+}
+
+/* --- MOBILE SPECIFIC OVERRIDES --- */
+#report-mobile {
+  width: 1080px;
+  min-height: 1920px;
+  /* Tall Canvas */
+  padding: 48px;
+  box-sizing: border-box;
+  /* Reset Desktop Flex props if acquired */
+  background: #0f0c29;
+  display: block;
+}
+
+#report-mobile .kingdom-card-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+#report-mobile .kingdom-name {
+  font-size: 32px;
+  line-height: 1.2;
+}
+
+#report-mobile .score-wrapper {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+}
+
+/* Mobile Typography (Clamp & Break) */
+#report-mobile .score-primary {
+  font-size: clamp(28px, 5vw, 42px) !important;
+  font-weight: 800;
+  color: #FFD400;
+  line-height: 1.1;
+  white-space: normal;
+  word-break: break-word;
+}
+
+#report-mobile .score-secondary {
+  font-size: clamp(16px, 2.5vw, 24px);
+  opacity: 0.9;
+  white-space: normal;
+  word-break: break-word;
+}
+
+/* Mobile Troop Rows - Bigger for readability */
+#report-mobile .troop-row {
+  font-size: 24px !important;
+  padding: 10px 0;
+}
+
+#report-mobile .troop-total {
+  font-size: 24px !important;
+  margin-top: 8px;
+}
+
+/* Mobile Global Summary - Ensuring readability */
+#report-mobile .data-global-score {
+  font-size: clamp(40px, 8vw, 60px) !important;
+  word-break: break-word;
+}
+
+#report-mobile .global-summary b {
+  font-size: 1.2em !important;
+}
+
+/* --- LANGUAGE SWITCHER (Fixed Top Right UI) --- */
+.lang-switch {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10000;
+  display: flex;
+  gap: 10px;
+}
+
+.lang-btn {
+  background: rgba(0, 0, 0, 0.6);
+  color: #888;
+  border: 1px solid #444;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 20px;
+  transition: 0.3s;
+  font-weight: 600;
+}
+
+.lang-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.active-lang {
+  background: #FFD700;
+  color: #000;
+  border-color: #FFD700;
+  font-weight: bold;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+}
+
+/* --- STANDARDIZED REPORT HEADER --- */
+.report-header {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 24px 48px;
+  gap: 16px;
+  border-bottom: 2px solid rgba(255, 215, 0, 0.2);
+  /* Keep existing divider feel */
+  margin-bottom: 20px;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+}
+
+.header-logo.left {
+  justify-content: flex-start;
+}
+
+.header-logo.right {
+  justify-content: flex-end;
+}
+
+.header-logo img {
+  height: 80px;
+  max-width: 160px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.5));
+}
+
+.header-center {
+  text-align: center;
+}
+
+.header-center h1 {
+  font-family: 'Cinzel', serif;
+  /* Use game font */
+  font-size: 42px;
+  color: #FFD700;
+  /* Use Gold */
+  margin: 0;
+  text-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+}
+
+.header-center p {
+  font-size: 14px;
+  opacity: 0.8;
+  color: #ddd;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-top: 5px;
+}
+
+.header-center .date {
+  font-size: 14px;
+  opacity: 0.7;
+  color: #fff;
+  display: block;
+  margin-top: 5px;
+  font-weight: bold;
+}
+
+/* MOBILE HEADER ADJUSTMENTS */
+@media (max-width: 768px) {
+  .report-header {
+    grid-template-columns: 1fr;
+    /* Stack vertically */
+    text-align: center;
+    padding: 20px;
+    gap: 20px;
+  }
+
+  .header-logo {
+    justify-content: center !important;
+  }
+
+  /* On mobile, maybe hide one logo or stack them? 
+     User said: "No mobile, empilha, mas mantém as logos visíveis"
+     "Logo K32 em cima, Título no meio, Logo Anonymous embaixo"
+     
+     HTML Order is: K32 (Left), Center, Anon (Right). 
+     In 1-col grid, they will naturally stack: K32, Center, Anon. 
+     This matches user request EXACTLY.
+  */
+
+  .header-logo img {
+    height: 60px;
+    /* Slightly smaller for mobile */
+  }
+
+  .header-center h1 {
+    font-size: 32px;
+  }
+}
+
+/* --- EXPORT FIXES --- */
+.export-mode #report-desktop-wrapper {
+  width: 1920px !important;
+}
+
+/* --- STANDARDIZED REPORT FOOTER --- */
+.report-footer {
+  margin-top: 48px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+
+  font-size: 12px;
+  opacity: 0.65;
+  text-align: center;
+  color: #fff;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .report-footer {
+    font-size: 11px;
+  }
+}
+
+.export-mode #report-mobile {
+  width: 1080px !important;
+}

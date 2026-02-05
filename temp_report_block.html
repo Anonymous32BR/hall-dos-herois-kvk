@@ -1,0 +1,146 @@
+<!-- 3️⃣ REPORT GENERATION (Hidden/Modal) -->
+<div style="margin-top:10px; width:100%; text-align:center;">
+    <button id="btnGenerateReport"
+        style="background:#444; color:#ccc; border:1px solid #666; padding:10px 20px; border-radius:30px; cursor:pointer;">
+        📄 GERAR RELATÓRIO OFICIAL
+    </button>
+</div>
+
+<!-- REPORT PREVIEW MODAL -->
+<div id="reportModal" class="modal" style="display:none; align-items:start; overflow-y:auto; padding-top:20px;">
+    <div class="modal-content"
+        style="width:100%; max-width:500px; background:#111; color:#fff; padding:0; border:1px solid #333;">
+
+        <!-- THE REPORT CANVAS (Exact structure requested) -->
+        <div id="kvk-report"
+            style="width:100%; padding:30px; background: url('./assets/bg-rok-war.png'); background-size:cover; font-family:'Montserrat', sans-serif; color:#fff; position:relative;">
+            <!-- Overlay for readability -->
+            <div style="position:absolute; inset:0; background:rgba(0,0,0,0.85); z-index:0;"></div>
+
+            <div style="position:relative; z-index:1;">
+                <!-- 1. HEADER -->
+                <div style="text-align:center; border-bottom:1px solid #444; padding-bottom:15px; margin-bottom:20px;">
+                    <h1 style="color:#FFD700; font-family:'Cinzel', serif; margin:0; font-size:1.8rem;">🏆 KVK CHAMPION
+                    </h1>
+                    <div
+                        style="color:#aaa; text-transform:uppercase; font-size:0.8rem; letter-spacing:2px; margin-bottom:10px;">
+                        Conquista Absoluta</div>
+
+                    <div style="font-size:1.5rem; font-weight:bold; color:#fff; margin-bottom:5px;">👑 <span
+                            id="repKingdom">Reino 0000</span></div>
+                    <div style="color:#666; font-size:0.7rem;" id="repDate">24/10/2026</div>
+                </div>
+
+                <!-- 2. SCORING RULES -->
+                <div style="margin-bottom:20px; background:rgba(255,255,255,0.05); padding:10px; border-radius:8px;">
+                    <h3 style="margin:0 0 10px 0; font-size:0.9rem; color:#FFD700;">📊 Regra de Pontuação</h3>
+                    <div style="display:flex; justify-content:space-between; font-size:0.8rem;">
+                        <span>T5 = <b style="color:#fff" id="repRuleT5">10</b> pts</span>
+                        <span>T4 = <b style="color:#fff" id="repRuleT4">4</b> pts</span>
+                    </div>
+                </div>
+
+                <!-- 3. SUMMARY -->
+                <div style="margin-bottom:25px;">
+                    <h3 style="margin:0 0 10px 0; font-size:0.9rem; color:#FFD700;">⚔️ Resumo Geral</h3>
+                    <div style="margin-bottom:10px;">
+                        <div style="font-size:0.7rem; color:#aaa;">Pontuação Total</div>
+                        <div style="font-size:1.5rem; font-weight:bold; color:#fff;" id="repTotalScore">0 pts</div>
+                    </div>
+                    <div style="display:flex; gap:10px; font-size:0.8rem;">
+                        <div style="flex:1; background:#222; padding:8px; border-left:3px solid #ff4500;">
+                            <div style="color:#aaa; font-size:0.6rem;">Total T5</div>
+                            <div id="repTotalT5" style="color:#fff;">0</div>
+                        </div>
+                        <div style="flex:1; background:#222; padding:8px; border-left:3px solid #ffa500;">
+                            <div style="color:#aaa; font-size:0.6rem;">Total T4</div>
+                            <div id="repTotalT4" style="color:#fff;">0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. DETAILED BREAKDOWN -->
+                <div style="margin-bottom:25px;">
+                    <h3 style="margin:0 0 15px 0; font-size:0.9rem; color:#FFD700;">🔍 Detalhamento de Tropas</h3>
+
+                    <!-- T5 Block -->
+                    <div style="margin-bottom:15px;">
+                        <div
+                            style="color:#ffcd58; font-weight:bold; font-size:0.8rem; margin-bottom:5px; border-bottom:1px solid #333;">
+                            🔹 TROPAS TIER 5</div>
+                        <table style="width:100%; font-size:0.75rem; color:#ccc;">
+                            <tr>
+                                <td>Infantaria:</td>
+                                <td style="text-align:right; color:#fff;" id="repInfT5">0</td>
+                            </tr>
+                            <tr>
+                                <td>Cavalaria:</td>
+                                <td style="text-align:right; color:#fff;" id="repCavT5">0</td>
+                            </tr>
+                            <tr>
+                                <td>Arqueiros:</td>
+                                <td style="text-align:right; color:#fff;" id="repArcT5">0</td>
+                            </tr>
+                            <tr>
+                                <td>Cerco:</td>
+                                <td style="text-align:right; color:#fff;" id="repCerT5">0</td>
+                            </tr>
+                            <tr style="background:rgba(255,215,0,0.1);">
+                                <td style="padding-top:3px;"><b>TOTAL T5:</b></td>
+                                <td style="text-align:right; color:#FFD700; padding-top:3px;" id="repSumT5"><b>0</b>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- T4 Block -->
+                    <div>
+                        <div
+                            style="color:#cd7f32; font-weight:bold; font-size:0.8rem; margin-bottom:5px; border-bottom:1px solid #333;">
+                            🔸 TROPAS TIER 4</div>
+                        <table style="width:100%; font-size:0.75rem; color:#ccc;">
+                            <tr>
+                                <td>Infantaria:</td>
+                                <td style="text-align:right; color:#fff;" id="repInfT4">0</td>
+                            </tr>
+                            <tr>
+                                <td>Cavalaria:</td>
+                                <td style="text-align:right; color:#fff;" id="repCavT4">0</td>
+                            </tr>
+                            <tr>
+                                <td>Arqueiros:</td>
+                                <td style="text-align:right; color:#fff;" id="repArcT4">0</td>
+                            </tr>
+                            <tr>
+                                <td>Cerco:</td>
+                                <td style="text-align:right; color:#fff;" id="repCerT4">0</td>
+                            </tr>
+                            <tr style="background:rgba(205,127,50,0.1);">
+                                <td style="padding-top:3px;"><b>TOTAL T4:</b></td>
+                                <td style="text-align:right; color:#FFD700; padding-top:3px;" id="repSumT4"><b>0</b>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 5. RANKING SUMMARY -->
+                <div>
+                    <h3 style="margin:0 0 10px 0; font-size:0.9rem; color:#FFD700;">🏅 Top Classificação</h3>
+                    <div id="repRankingList" style="font-size:0.75rem; color:#ddd;">
+                        <!-- JS fill -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div style="padding:15px; text-align:center; background:#000;">
+            <button id="btnDownloadReport"
+                style="background:#28a745; color:#fff; border:none; padding:10px 25px; border-radius:5px; cursor:pointer; font-weight:bold;">⬇️
+                BAIXAR IMAGEM</button>
+            <button id="btnCloseReport"
+                style="background:transparent; color:#aaa; border:1px solid #444; padding:10px 20px; border-radius:5px; cursor:pointer; margin-left:10px;">Fechar</button>
+        </div>
+    </div>
+</div>

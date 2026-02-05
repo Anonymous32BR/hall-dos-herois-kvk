@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Tests - KvK Calculator</title>
+    <style>
+        body {
+            background: #121212;
+            color: #fff;
+            font-family: sans-serif;
+            padding: 20px;
+        }
+
+        .test-suite {
+            margin-bottom: 20px;
+            border: 1px solid #333;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .passed {
+            color: #00C851;
+        }
+
+        .failed {
+            color: #FF4444;
+        }
+
+        h2 {
+            border-bottom: 1px solid #444;
+            padding-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>KvK Calculator Tests</h1>
+    <div id="output"></div>
+
+    <script type="module">
+        import { mapValues, positionMap } from '../logic/mapper.js';
+        import { calculateKvK, kvkPoints } from '../logic/calculator.js';
+        import { validateOCRResponse } from '../logic/validator.js';
+
+        const output = document.getElementById('output');
+
+        function assert(desc, condition) {
+            const div = document.createElement('div');
+            if (condition) {
+                div.className = 'passed';
+                div.innerHTML = `✅ ${desc}`;
+            } else {
+                div.className = 'failed';
+                div.innerHTML = `❌ ${desc}`;
+                console.error(`FAILED: ${desc}`);
+            }
+            output.appendChild(div);
+        }
+
+        function group(name, fn) {
+            const div = document.createElement('div');
+            div.className = 'test-suite';
+            div.innerHTML = `<h2>${name}</h2>`;
+            output.appendChild(div);
+            const oldOutput = output; // Hacky context switch
+            // Actually simpler to just run logic, but let's append to document normally
+            // Just adding a header
+        }
+
+        // --- Tests ---
+
+        // 1. Validator
+        group('Validator', () => { });
+        const r1 = validateOCRResponse({ values: [1, 2, 3, 4, 5, 6, 7, 8] });
+        assert('Validator accepts valid array', r1.valid === true);
+
+        const r2 = validateOCRResponse({ values: [1, 2, 3] });
+        assert('Validator rejects short array', r2.valid === false && r2.error.includes('incorreta'));
+
+        const r3 = validateOCRResponse({ values: [1, 2, 3, 'a', 5, 6, 7, 8] });
+        assert('Validator rejects strings', r3.valid === false);
+
+        const r4 = validateOCRResponse({ values: [1, 2, -1, 4, 5, 6, 7, 8] });
+        assert('Validator rejects negative numbers', r4.valid === false);
+
+        // 2. Mapper
+        group('Mapper', () => { });
+        const inputMap = [10, 20, 30, 40, 50, 60, 70, 80];
+        const mapped = mapValues(inputMap);
+        assert('Mapper maps Inf T5 correctly', mapped.infantry_t5 === 10);
+        assert('Mapper maps Siege T4 correctly', mapped.siege_t4 === 80);
+        assert('Mapper keys exist', Object.keys(mapped).length === 8);
+
+        // 3. Calculator
+        group('Calculator', () => { });
+        // T5 = 20pts, T4 = 8pts
+        // Test: 1 of each
+        const calcInput = {
+            infantry_t5: 1, cavalry_t5: 1, archer_t5: 1, siege_t5: 1,
+            infantry_t4: 1, cavalry_t4: 1, archer_t4: 1, siege_t4: 1
+        };
+        const res = calculateKvK(calcInput);
+        const expected = (4 * 20) + (4 * 8); // 80 + 32 = 112
+        assert(`Calculator total correct (Expected ${expected}, Got ${res.total})`, res.total === expected);
+
+        assert('Calculator detail Inf T5 correct', res.details.infantry_t5.points === 20);
+        assert('Calculator detail Inf T4 correct', res.details.infantry_t4.points === 8);
+
+    </script>
+</body>
+
+</html>

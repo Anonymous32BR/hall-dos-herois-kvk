@@ -1,0 +1,106 @@
+/* --- REPORT GENERATOR STYLES --- */
+
+/* Base Container */
+#kvk-report {
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    position: relative;
+    overflow: hidden;
+    /* Transform origin for preview scaling */
+    transform-origin: top center;
+    box-sizing: border-box;
+}
+
+#kvk-report .report-bg-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(15, 12, 41, 0.9) 0%, rgba(48, 43, 99, 0.95) 100%), url('./assets/bg-rok-war.png');
+    background-size: cover;
+    background-attachment: fixed;
+    pointer-events: none;
+    z-index: 0;
+}
+
+#kvk-report .report-content {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+}
+
+/* --- MOBILE MODE (9:16 Portrait) --- */
+#kvk-report.mobile {
+    width: 1080px;
+    min-height: 1920px;
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Mobile Header */
+#kvk-report.mobile .report-header {
+    text-align: center;
+    border-bottom: 4px solid #FFD700;
+    padding-bottom: 40px;
+    margin-bottom: 50px;
+}
+
+#kvk-report.mobile .header-title {
+    font-family: 'Cinzel', serif;
+    font-size: 5rem;
+    color: #FFD700;
+    margin: 0;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+}
+
+/* --- DESKTOP MODE (16:9 Landscape) --- */
+#kvk-report.desktop {
+    width: 1920px;
+    min-height: 1080px;
+    /* Allow growth if list is long */
+    padding: 60px 80px;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    /* Left: Summary/Rules, Right: List */
+    grid-template-rows: auto 1fr;
+    gap: 50px;
+    align-content: start;
+}
+
+/* Desktop Header spans full width */
+#kvk-report.desktop .report-header {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 4px solid #FFD700;
+    padding-bottom: 30px;
+    margin-bottom: 20px;
+}
+
+#kvk-report.desktop .header-title {
+    font-family: 'Cinzel', serif;
+    font-size: 4rem;
+    color: #FFD700;
+    margin: 0;
+}
+
+/* Desktop specific Adjustments */
+#kvk-report.desktop .report-left-col {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+#kvk-report.desktop .report-right-col {
+    display: flex;
+    flex-direction: column;
+}
+
+#kvk-report.desktop #kingdomsReportContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* 2 columns of kingdom cards */
+    gap: 30px;
+}

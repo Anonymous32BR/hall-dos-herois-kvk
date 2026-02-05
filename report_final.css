@@ -1,0 +1,198 @@
+/* --- REPORT GENERATOR FINAL --- */
+
+/* Utility: Background Overlay */
+.report-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(15, 12, 41, 0.95) 0%, rgba(48, 43, 99, 0.98) 100%), url('./assets/bg-rok-war.png');
+    background-size: cover;
+    background-attachment: fixed;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* --- MOBILE CONTAINER (1080x1920 base) --- */
+#report-mobile {
+    width: 1080px;
+    min-height: 1920px;
+    background: #0f0c29;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    padding: 48px;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Mobile Typography (User Requested Sizes) */
+#report-mobile h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 42px;
+    margin: 0;
+    color: #FFD700;
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+}
+
+#report-mobile h2 {
+    font-size: 30px;
+    text-transform: uppercase;
+    margin: 0;
+    color: #fff;
+}
+
+#report-mobile h3 {
+    font-size: 26px;
+    font-weight: bold;
+    margin: 0;
+    color: #FFD700;
+}
+
+#report-mobile p,
+#report-mobile div {
+    font-size: 22px;
+}
+
+/* Mobile Sections */
+#report-mobile .report-header {
+    text-align: center;
+    border-bottom: 2px solid #FFD700;
+    padding-bottom: 32px;
+    margin-bottom: 40px;
+}
+
+#report-mobile .global-summary {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 32px;
+    margin-bottom: 40px;
+    border-left: 6px solid #28a745;
+}
+
+#report-mobile .kingdoms-list {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+
+/* --- DESKTOP CONTAINER (1920x1080 base) --- */
+#report-desktop {
+    width: 1920px;
+    min-height: 1080px;
+    background: #0f0c29;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    padding: 64px;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    /* Sidebar logic */
+    grid-template-rows: auto 1fr;
+    gap: 50px;
+    align-content: start;
+}
+
+/* Desktop Typography */
+#report-desktop h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 56px;
+    margin: 0;
+    color: #FFD700;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+}
+
+#report-desktop h2 {
+    font-size: 36px;
+    text-transform: uppercase;
+    color: #fff;
+    margin: 0;
+}
+
+#report-desktop h3 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #FFD700;
+    margin: 0;
+}
+
+#report-desktop p,
+#report-desktop div {
+    font-size: 24px;
+}
+
+/* Desktop Sections */
+#report-desktop .report-header {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid #FFD700;
+    padding-bottom: 30px;
+    margin-bottom: 10px;
+}
+
+#report-desktop .left-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+#report-desktop .right-content {}
+
+#report-desktop .global-summary {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 40px;
+    border-left: 8px solid #28a745;
+}
+
+/* Grid for Kingdoms in Desktop */
+#report-desktop .kingdoms-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* 2 Columns */
+    gap: 32px;
+}
+
+/* Common Card Style (Kingdom) */
+.kingdom-card {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 24px;
+    page-break-inside: avoid;
+}
+
+.kingdom-card-header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+}
+
+.troop-block {
+    margin-bottom: 16px;
+}
+
+.troop-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4px;
+    color: #ccc;
+    font-size: 0.9em;
+    /* relative to parent */
+}
+
+.troop-total {
+    text-align: right;
+    font-weight: bold;
+    color: #FFD700;
+    margin-top: 8px;
+    padding-top: 4px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
