@@ -48,7 +48,8 @@ const sliderT4 = document.getElementById('sliderT4');
 const inputT4 = document.getElementById('inputT4');
 
 // Config Modal
-const settingsBtn = document.getElementById('settingsBtn');
+// Config Modal
+// const settingsBtn = document.getElementById('settingsBtn'); // REMOVED
 const configModal = document.getElementById('configModal');
 const apiKeyInput = document.getElementById('apiKeyInput');
 const saveConfigBtn = document.getElementById('saveConfigBtn');
@@ -68,9 +69,9 @@ function init() {
     // Listeners
     addKingdomBtn.addEventListener('click', () => addKingdom());
 
-    settingsBtn.addEventListener('click', () => configModal.style.display = 'flex');
-    closeConfigBtn.addEventListener('click', () => configModal.style.display = 'none');
-    saveConfigBtn.addEventListener('click', saveConfig);
+    // settingsBtn was removed from UI
+    if (closeConfigBtn) closeConfigBtn.addEventListener('click', () => configModal.style.display = 'none');
+    if (saveConfigBtn) saveConfigBtn.addEventListener('click', saveConfig);
 
     // Sync Sliders <-> Inputs
     setupSync(sliderT5, inputT5);
