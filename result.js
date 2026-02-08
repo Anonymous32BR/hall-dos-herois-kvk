@@ -320,7 +320,7 @@ function populateReport(data) {
             </div>
 
             <!-- T5 -->
-            <div class="troop-block" style="margin-bottom:15px;">
+            <div class="troop-block">
                 <div style="color:#ffcd58; font-weight:bold; border-bottom:1px solid rgba(255,255,255,0.1); margin-bottom:8px; font-size:0.9em;">
                     TIER 5
                 </div>

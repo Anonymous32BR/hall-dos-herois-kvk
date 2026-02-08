@@ -96,10 +96,11 @@
     align-content: start;
 }
 
-/* Desktop Typography */
+/* Desktop Typography - Compacted */
 #report-desktop h1 {
     font-family: 'Cinzel', serif;
-    font-size: 56px;
+    font-size: 42px;
+    /* Reduced from 56px */
     margin: 0;
     color: #FFD700;
     text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
@@ -150,13 +151,42 @@
     border-left: 8px solid #28a745;
 }
 
-/* Grid for Kingdoms in Desktop */
+/* Grid for Kingdoms in Desktop - 3 COLUMNS for compact fit */
 #report-desktop .kingdoms-list {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    /* 2 Columns */
-    gap: 32px;
+    grid-template-columns: repeat(3, 1fr);
+    /* 3 Columns */
+    gap: 20px;
 }
+
+/* COMPACT CARD FOR DESKTOP (Side-by-Side T5/T4) */
+#report-desktop .kingdom-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr;
+    gap: 15px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.4);
+    /* Darker for contrast */
+}
+
+#report-desktop .kingdom-card-header {
+    grid-column: 1 / -1;
+    /* Header spans both columns */
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+}
+
+#report-desktop .troop-block {
+    margin-bottom: 0;
+}
+
+#report-desktop .troop-row {
+    font-size: 0.85em;
+    /* Smaller font for compaction */
+    margin-bottom: 2px;
+}
+
 
 /* Common Card Style (Kingdom) */
 .kingdom-card {
